@@ -9,7 +9,7 @@ class Post < ApplicationRecord
     has_one_attached :image
     
     # Validações
-    validades :name, presence: true
+    validates :name, presence: true
     validates :content, presence: true
 
     # Colocar o valor padrão de views para 0
