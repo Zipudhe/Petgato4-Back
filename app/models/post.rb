@@ -1,6 +1,6 @@
 class Post < ApplicationRecord
     # Associations
-    has_many :tagposts
+    has_many :tag_posts
     has_many :comments
     has_many :likes
 
