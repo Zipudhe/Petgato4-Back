@@ -27,7 +27,7 @@ class UsersController < ApplicationController
         if @user.update(user_params)
             render json: @user, status: 200
         else
-            render json: @anime.erros, status: 422
+            render json: @user.erros, status: 422
         end
     end
 
