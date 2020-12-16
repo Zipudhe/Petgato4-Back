@@ -1,5 +1,6 @@
 class LikesController < ApplicationController
-    before_action :set_like, only: [:userlikes, :postlikes]
+    before_action :set_userlike, only: [:userlikes]
+    before_action :set_postlike, only: [:postlikes]
 
     # GET /likes Mostra todos os likes
     def index
@@ -7,14 +8,14 @@ class LikesController < ApplicationController
         render json: @likes, status: 200
     end
 
-    # GET /likes/:user_id Mostra os likes do usuário com id especificada
+    # GET /likes//user/:user_id Mostra os likes do usuário com id especificada
     def userlikes
-        render json: @like, status: 200
+        render json: @likes, status: 200
     end
 
-    # GET /likes/:post_id Mostra os likes no post com id especificada
+    # GET /likes/post/:post_id Mostra os likes no post com id especificada
     def postlikes
-        render json: @like, status: 200
+        render json: @likes, status: 200
     end
 
     # POST /likes Cria uma nova mensagem
@@ -29,10 +30,16 @@ class LikesController < ApplicationController
 
     private
 
-    def set_like
-        @like = Like.find(params[:id])
+    # Retorna os likes de um usuário 
+    def set_userlike
+        @likes = Like.where(user_id: params[:user_id])
     end
 
+    # Retorna os likes de uma postagem
+    def set_postlike
+        @likes = Like.where(post_id: params[:post_id])
+    end
+    
     def like_params
         params.require(:like).permit(:post_id, :user_id)
     end
