@@ -1,4 +1,9 @@
 class Post < ApplicationRecord
+    # Associations
+    has_many :tagposts
+    has_many :comments
+    has_many :likes
+
     # Callback para manipular o valor default de views
     before_save :default_value
 
