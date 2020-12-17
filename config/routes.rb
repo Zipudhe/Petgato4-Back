@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-
+  
+  # Rotas da Reports controller 
+  resources :reports
+  
   # Rotas da Contacts controller
   get "/messages", to: "contacts#index"
   get "/messages/:id", to: "contacts#show"
@@ -19,6 +22,5 @@ Rails.application.routes.draw do
   get "/likes/user/:user_id", to: "likes#userlikes"
   get "/likes/post/:post_id", to: "likes#postlikes"
   post "/likes", to: "likes#create"
-
 
 end
