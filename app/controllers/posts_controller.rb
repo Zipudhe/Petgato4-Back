@@ -1,9 +1,18 @@
 class PostsController < ApplicationController
+    # Adicionar constante para indicar quantos posts por página
+    POSTS_PER_PAGE = 5
+
     before_action :set_post, only: [:show, :update, :destroy]
 
-    # GET /posts all posts
+    # GET /posts posts da página
     def index
-        @posts = Post.all
+        # Define a página em que iremos buscar os posts
+        @page = params.fetch(:page, 0).to_i
+
+        # Para fazer a query /posts?page=nº_da_pagina
+        
+        # Busca os posts da pǵina, 5 posts por página, com os mais recentes primeiro
+        @posts = Post.offset(@page*POSTS_PER_PAGE).limit(POSTS_PER_PAGE).reverse_order
         render json:@posts, status: 200
     end 
 
