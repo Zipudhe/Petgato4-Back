@@ -93,6 +93,13 @@ ActiveRecord::Schema.define(version: 2020_12_16_042452) do
     t.datetime "updated_at", precision: 6, null: false
   end
   
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+  
   create_table "tag_posts", force: :cascade do |t|
     t.integer "post_id"
     t.integer "tag_id"
