@@ -1,8 +1,8 @@
 class User < ApplicationRecord
     # Associations
-    has_many :comments
-    has_many :likes
-    has_many :replies
+    has_many :comments,  dependent: :destroy 
+    has_many :likes,  dependent: :destroy 
+    has_many :replies,  dependent: :destroy 
 
     # Criptografar a senha
     has_secure_password
