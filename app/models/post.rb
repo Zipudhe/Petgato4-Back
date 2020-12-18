@@ -1,8 +1,8 @@
 class Post < ApplicationRecord
     # Associations
-    has_many :tag_posts
-    has_many :comments
-    has_many :likes
+    has_many :tag_posts,  dependent: :destroy 
+    has_many :comments,  dependent: :destroy 
+    has_many :likes,  dependent: :destroy 
 
     # Callback para manipular o valor default de views
     before_save :default_value

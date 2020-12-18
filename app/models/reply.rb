@@ -3,7 +3,7 @@ class Reply < ApplicationRecord
     validates :user_id, presence: true
     validates :comment_id, presence: true
 
-    has_many :reports
+    has_many :reports,  dependent: :destroy 
     has_one :user
     has_one :comment_id
     
