@@ -12,8 +12,7 @@ class PostsController < ApplicationController
         # Para fazer a query /posts?page=nº_da_pagina
         
         # Busca os posts da pǵina, 5 posts por página, com os mais recentes primeiro
-        @posts = Post.offset(@page*POSTS_PER_PAGE).limit(POSTS_PER_PAGE).reverse_order
-        render json:@posts, status: 200
+        render_posts(@page)
     end 
 
     # GET /posts/:id mostra info do post com id da rota 
@@ -44,7 +43,8 @@ class PostsController < ApplicationController
     def destroy
         @post.destroy
 
-        index()
+        @page = params.fetch(:page, 0).to_i
+        render_posts(@page)
     end
 
     private
@@ -57,6 +57,12 @@ class PostsController < ApplicationController
     # Strong parameters, dizer quais parâmetros do BODY da requisição são permitidos 
     def post_params
         params.require(:post).permit(:name, :content, :image, :views)
+    end
+
+    # Busca os posts da página, 5 posts por página, com os mais recentes primeiro
+    def render_posts page
+        @posts = Post.offset(@page*POSTS_PER_PAGE).limit(POSTS_PER_PAGE).reverse_order
+        render json:@posts, status: 200
     end
 
 end
