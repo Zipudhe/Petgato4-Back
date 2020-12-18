@@ -43,6 +43,8 @@ class PostsController < ApplicationController
     # DELETE /posts/:id
     def destroy
         @post.destroy
+
+        index()
     end
 
     private
