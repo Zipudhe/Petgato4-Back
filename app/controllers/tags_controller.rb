@@ -1,9 +1,12 @@
 class TagsController < ApplicationController
+    TAGS_PER_PAGE = 5
+
     before_action :set_tag, only: [:show, :update, :destroy]
 
     def index
-        @tags = Tag.all
-        render json:@tags, status: 200
+        @page = params.fetch(:page, 0).to_i
+
+        render_tags(@page)
     end
 
     def show
@@ -13,7 +16,7 @@ class TagsController < ApplicationController
     def create
         @tag = Tag.new(tag_params)
         if @tag.save
-            render json:@tag, status: 201
+            render json: @tag, status: 201
         else
             render json: @tag.errors, status: :unprocessable_entity
         end
@@ -29,6 +32,9 @@ class TagsController < ApplicationController
 
     def destroy
         @tag.destroy
+
+        @page = params.fetch(:page, 0).to_i
+        render_tags(@page)
     end
 
     private
@@ -39,6 +45,11 @@ class TagsController < ApplicationController
 
     def tag_params
         params.require(:tag).permit(:name, :description)
+    end
+
+    def render_tags page
+        @tags = Tag.offset((@page-1)*TAGS_PER_PAGE).limit(TAGS_PER_PAGE).reverse_order
+        render json:@tags, status: 200
     end
 
 end
