@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   # Rotas da Tags controller
   resources :tags
+  get "/alltags", to: "tags#tags"
+  get "/countags", to: "tags#countags"
   
   # Rotas da Comments controller
   resources :comments

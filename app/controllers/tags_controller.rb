@@ -2,6 +2,7 @@ class TagsController < ApplicationController
     TAGS_PER_PAGE = 5
 
     before_action :set_tag, only: [:show, :update, :destroy]
+    before_action :all_tags, only: [:tags, :countags]
 
     def index
         @page = params.fetch(:page, 0).to_i
@@ -37,6 +38,16 @@ class TagsController < ApplicationController
         render_tags(@page)
     end
 
+    # /alltags retorna todas as tags
+    def tags
+        render json: @tags, status: 200
+    end
+
+    # /countags retorna a quantidade de tags 
+    def countags
+        render json: @tags.size, status: 200
+    end
+
     private
 
     def set_tag
@@ -47,8 +58,14 @@ class TagsController < ApplicationController
         params.require(:tag).permit(:name, :description)
     end
 
+    # Salva todas as tags na variável global
+    def all_tags
+        @tags = Tag.all
+    end
+
     def render_tags page
-        @tags = Tag.offset((@page-1)*TAGS_PER_PAGE).limit(TAGS_PER_PAGE).reverse_order
+        # Renderiza 5 tags por página, @page = 0 é a primeira página
+        @tags = Tag.offset((@page)*TAGS_PER_PAGE).limit(TAGS_PER_PAGE).reverse_order
         render json:@tags, status: 200
     end
 
