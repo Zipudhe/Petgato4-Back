@@ -7,12 +7,14 @@ Rails.application.routes.draw do
   post "/posts", to: "posts#create"
   put "/posts/:id", to: "posts#update"
   delete "posts/:id", to: "posts#destroy"
+  get "/allposts", to: "posts#posts"
+  get "/countposts", to: "posts#countposts"
 
   # Rotas da Tags controller
   resources :tags
   get "/alltags", to: "tags#tags"
   get "/countags", to: "tags#countags"
-  
+
   # Rotas da Comments controller
   resources :comments
   

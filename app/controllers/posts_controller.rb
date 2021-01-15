@@ -3,6 +3,7 @@ class PostsController < ApplicationController
     POSTS_PER_PAGE = 5
 
     before_action :set_post, only: [:show, :update, :destroy]
+    before_action :all_posts, only: [:posts, :countposts]
 
     # GET /posts posts da página
     def index
@@ -47,6 +48,14 @@ class PostsController < ApplicationController
         render_posts(@page)
     end
 
+    def posts
+        render json: @posts, status: 200
+    end
+
+    def countposts
+        render json: @posts.size, status: 200
+    end
+
     private
 
     # Pegar id da rota e buscar o post correspondente no banco de dados
@@ -57,6 +66,10 @@ class PostsController < ApplicationController
     # Strong parameters, dizer quais parâmetros do BODY da requisição são permitidos 
     def post_params
         params.require(:post).permit(:name, :content, :image, :views)
+    end
+
+    def all_posts
+        @posts = Post.all
     end
 
     # Busca os posts da página, 5 posts por página, com os mais recentes primeiro
