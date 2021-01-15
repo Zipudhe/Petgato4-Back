@@ -10,4 +10,12 @@ class JsonWebToken
       decoded = JWT.decode(token, SECRET_KEY)[0]
       HashWithIndifferentAccess.new decoded
     end
+
+    def self.valid_token(token)
+      begin JWT.decode(token, SECRET_KEY)[0]
+        return true
+      rescue JWT::DecodeError
+        return false
+      end
+    end
   end

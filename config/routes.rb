@@ -37,7 +37,8 @@ Rails.application.routes.draw do
   delete "users/:id", to: "users#destroy"
 
   # Rota de autenticação
-  post "auth/login", to: "authentication#login"
+  post "/auth/login", to: "authentication#login"
+  get "/is_token_valid", to: "authentication#is_token_valid"
 
   # Rotas da Likes controller
   get "/likes", to: "likes#index"
