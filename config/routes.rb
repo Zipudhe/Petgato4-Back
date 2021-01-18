@@ -23,7 +23,9 @@ Rails.application.routes.draw do
   
   # Rotas da TagPosts controller
   resources :tag_posts
-  
+  get "/tag_posts/tags/:id", to: "tag_posts#postags"  # tags de um post
+  #get "/tag_posts/posts/:id", to: "tag_posts#postags" # posts de uma tag
+
   # Rotas da Reports controller 
   resources :reports
   

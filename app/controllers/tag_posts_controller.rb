@@ -31,6 +31,13 @@ class TagPostsController < ApplicationController
         @tag_post.destroy
     end
 
+    # GET /tag_posts/tags/:id retorna as tags de um post
+    def postags
+        @posts = Post.where(id: params[:id])
+
+        render json: @posts, status: 200
+    end
+
     private
 
     def set_tag_post
