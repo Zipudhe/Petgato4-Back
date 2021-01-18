@@ -22,7 +22,16 @@ class AuthenticationController < ApplicationController
 
       render json: is_valid, status: 200
     end
-  
+    
+    # GET /is_admin retorna se o id passado no header é valido ou não
+    def is_admin
+      user_id = request.headers['UserID']
+      user_id = user_id.split(' ').last
+      @user = User.find(user_id);
+
+      render json: @user.is_admin, status: 200
+    end
+
     private
   
     def login_params
