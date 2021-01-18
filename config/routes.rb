@@ -36,6 +36,11 @@ Rails.application.routes.draw do
   put "/users/:id", to: "users#update"
   delete "users/:id", to: "users#destroy"
 
+  # Rota de autenticação
+  post "/auth/login", to: "authentication#login"
+  get "/is_token_valid", to: "authentication#is_token_valid"
+  get "/is_admin", to: "authentication#is_admin"
+
   # Rotas da Likes controller
   get "/likes", to: "likes#index"
   get "/likes/user/:user_id", to: "likes#userlikes"
