@@ -33,7 +33,7 @@ class TagPostsController < ApplicationController
 
     # GET /tag_posts/tags/:id retorna as tags de um post
     def postags
-        @posts = Post.where(id: params[:id])
+        @posts = TagPost.where(post_id: params[:id])
 
         render json: @posts, status: 200
     end
