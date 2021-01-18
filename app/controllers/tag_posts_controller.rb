@@ -31,7 +31,7 @@ class TagPostsController < ApplicationController
         @tag_post.destroy
     end
 
-    # GET /tag_posts/tags/:id retorna as tags de um post
+    # GET /tag_posts/tags/:id retorna os posts de uma tag
     def postags
         @posts = TagPost.where(post_id: params[:id])
 
@@ -42,6 +42,17 @@ class TagPostsController < ApplicationController
     def countagposts
         countposts = TagPost.where(tag_id: params[:tag_id])
         render json: countposts.size, status: 200
+    end
+
+    # GET /tagsbypost/:post_id retorna as tags de um post
+    def tagsbypost
+        tag_posts = TagPost.where(post_id: params[:post_id])
+        tags = []
+        for i in 0..(tag_posts.size - 1)
+            tags.push(Tag.find(tag_posts[i].tag_id))
+        end
+        
+        render json: tags, status: 200
     end
 
     private
