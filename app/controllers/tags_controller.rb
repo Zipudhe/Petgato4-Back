@@ -66,7 +66,18 @@ class TagsController < ApplicationController
     def render_tags page
         # Renderiza 5 tags por página, @page = 0 é a primeira página
         @tags = Tag.offset((@page)*TAGS_PER_PAGE).limit(TAGS_PER_PAGE).reverse_order
-        render json:@tags, status: 200
+
+        # Cria um array de hashes personalizado
+        @tags_to_render = []
+        for i in 0..(@tags.size - 1)
+            n_posts = 0
+            tag_id = @tags[i].id
+            n_posts = TagPost.where(tag_id: tag_id).size
+            hashref = {"id" => tag_id, "n_posts" => n_posts, "name" => @tags[i].name, 
+            "description" => @tags[i].description}
+            @tags_to_render.push(hashref)
+        end
+        render json: @tags_to_render, status: 200
     end
 
 end
