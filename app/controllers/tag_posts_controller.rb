@@ -38,6 +38,12 @@ class TagPostsController < ApplicationController
         render json: @posts, status: 200
     end
 
+    # GET /countagposts/:tag_id retorna o número de posts em que a tag aparece
+    def countagposts
+        countposts = TagPost.where(tag_id: params[:tag_id])
+        render json: countposts.size, status: 200
+    end
+
     private
 
     def set_tag_post
