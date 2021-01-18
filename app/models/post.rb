@@ -5,7 +5,7 @@ class Post < ApplicationRecord
     has_many :likes,  dependent: :destroy 
 
     # Callback para manipular o valor default de views
-    before_save :default_value
+    before_create :default_value
 
     # Action Text
     has_rich_text :content

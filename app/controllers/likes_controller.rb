@@ -15,7 +15,7 @@ class LikesController < ApplicationController
 
     # GET /likes/post/:post_id Mostra os likes no post com id especificada
     def postlikes
-        render json: @likes, status: 200
+        render json: @likes.length, status: 200
     end
 
     # POST /likes Cria uma nova mensagem
