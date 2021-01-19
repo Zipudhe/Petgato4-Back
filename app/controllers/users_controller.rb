@@ -48,6 +48,10 @@ class UsersController < ApplicationController
         render json: users, status: 200
     end
 
+    def users_count
+        render json: User.all.size, status: 200
+    end
+
     private
     
     # Pegar id da rota e buscar o user correspondente no banco de dados

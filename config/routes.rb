@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   put "/users/:id", to: "users#update"
   delete "users/:id", to: "users#destroy"
   get "users_all", to: "users#allusers"
+  get "users_count", to: "users#users_count"
 
   # Rota de autenticação
   post "/auth/login", to: "authentication#login"
