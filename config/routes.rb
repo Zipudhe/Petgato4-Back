@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   get "/countagposts/:tag_id", to: "tag_posts#countagposts"
   get "/tagsbypost/:post_id", to: "tag_posts#tagsbypost"
   get "/postsbytag/:tag_id", to: "tag_posts#postsbytag"
-
+  
   # Rotas da Reports controller 
   resources :reports
   get "/reports_all", to: "reports#allreports"
