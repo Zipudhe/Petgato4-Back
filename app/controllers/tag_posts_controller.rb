@@ -31,6 +31,27 @@ class TagPostsController < ApplicationController
         @tag_post.destroy
     end
 
+    def add_remove
+        tags_array = params[:tags]
+        post_tags = TagPost.where(post_id: params[:post_id])
+
+        # Checar se é necessário criar novas tag_posts
+        for i in 0..(tags_array.size - 1)
+            is_included = post_tags.include? tags_array[i].tag_id
+            if is_included == false
+                TagPost.new(params[:post_id], tags_array[i].tag_id)
+            end
+        end
+
+        # Checar se é necessário apagar alguma tag_post
+        for i in 0..(post_tags[i].size - 1)
+            is_included = tag_posts.include? post_tags[i]
+            if is_included = false
+                post_tags[i].destroy
+        end
+
+    end
+
     # GET /tag_posts/tags/:id retorna os posts de uma tag
     def postags
         @posts = TagPost.where(post_id: params[:id])
