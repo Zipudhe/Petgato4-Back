@@ -5,6 +5,6 @@ class Reply < ApplicationRecord
 
     has_many :reports,  dependent: :destroy 
     has_one :user
-    has_one :comment_id
+    has_one :comment
     
 end
