@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   get "/countagposts/:tag_id", to: "tag_posts#countagposts"
   get "/tagsbypost/:post_id", to: "tag_posts#tagsbypost"
   get "/postsbytag/:tag_id", to: "tag_posts#postsbytag"
-  get "/explodeapi", to: "tag_posts#add_remove"
+  put "/edit_tagpost", to: "tag_posts#add_remove"
 
   # Rotas da Reports controller 
   resources :reports
