@@ -39,6 +39,7 @@ Rails.application.routes.draw do
   post "/messages", to: "contacts#create"
   delete "/messages/:id", to: "contacts#destroy"
   get "/messages_all", to: "contacts#allcontacts"
+  get "/messages_count", to: "contacts#contacts_count"
 
   # Rotas da Users controller
   get "/users", to: "users#index"

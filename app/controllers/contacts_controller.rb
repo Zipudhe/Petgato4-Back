@@ -37,6 +37,10 @@ class ContactsController < ApplicationController
         render json: contacts, status: 200
     end
 
+    def contacts_count
+        render json: Contact.all.size, status: 200
+    end
+
     private
 
     def set_contact
