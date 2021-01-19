@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   # Rotas da Reports controller 
   resources :reports
   get "/reports_all", to: "reports#allreports"
+  get "/report_count", to: "reports#report_all_count"
   
   # Rotas da Contacts controller
   get "/messages", to: "contacts#index"

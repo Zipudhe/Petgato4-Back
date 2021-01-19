@@ -37,8 +37,12 @@ class ReportsController < ApplicationController
     end
 
     def allreports
-        reports = Report.all
-        render json: reports, status: 200
+        render json: Report.all, status: 200
+    end
+
+    
+    def reports_all_count
+        render josn: Report.all.size, status: 200
     end
 
     private
