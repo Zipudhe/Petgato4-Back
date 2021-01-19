@@ -59,7 +59,8 @@ Rails.application.routes.draw do
 
   # Rotas da Likes controller
   get "/likes", to: "likes#index"
-  get "/likes/user/:user_id", to: "likes#userlikes"
+  get "/likes/:user_id/:post_id", to: "likes#userliked"
+  delete "/likes/:user_id/:post_id", to: "likes#destroy"
   get "/likes/post/:post_id", to: "likes#postlikes"
   post "/likes", to: "likes#create"
 
