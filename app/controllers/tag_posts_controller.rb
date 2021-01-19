@@ -55,6 +55,17 @@ class TagPostsController < ApplicationController
         render json: tags, status: 200
     end
 
+    # GET /postsbytag/:tag_id retorna os posts de uma tag
+    def postsbytag
+        tag_posts = TagPost.where(tag_id: params[:tag_id])
+        posts = []
+        for i in 0..(tag_posts.size - 1)
+            posts.push(Post.find(tag_posts[i].post_id))
+        end
+        
+        render json: posts, status: 200
+    end
+
     private
 
     def set_tag_post
