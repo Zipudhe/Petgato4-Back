@@ -56,6 +56,13 @@ class PostsController < ApplicationController
         render json: @posts.size, status: 200
     end
 
+    # retorna os 3 posts mais populares (com mais visualizações)
+    def popularposts
+        @posts = Post.order(:views).last(3)
+
+        render json: @posts, status: 200
+    end
+
     private
 
     # Pegar id da rota e buscar o post correspondente no banco de dados

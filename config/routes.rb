@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   delete "posts/:id", to: "posts#destroy"
   get "/allposts", to: "posts#posts"
   get "/countposts", to: "posts#countposts"
+  get "/popularposts", to: "posts#popularposts"
 
   # Rotas da Tags controller
   resources :tags
