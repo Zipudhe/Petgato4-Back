@@ -44,8 +44,11 @@ class UsersController < ApplicationController
     end
 
     def allusers
-        users = User.all
-        render json: users, status: 200
+        render json: User.all, status: 200
+    end
+
+    def users_count
+        render json: User.all.size, status: 200
     end
 
     private

@@ -33,8 +33,11 @@ class ContactsController < ApplicationController
     end
 
     def allcontacts
-        contacts = Contact.all.reverse_order
-        render json: contacts, status: 200
+        render json: Contact.all.reverse_order, status: 200
+    end
+
+    def contacts_count
+        render json: Contact.all.size, status: 200
     end
 
     private
