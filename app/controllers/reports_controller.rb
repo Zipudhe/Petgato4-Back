@@ -1,9 +1,11 @@
 class ReportsController < ApplicationController
     before_action :set_report, only: [:show, :update, :destroy]
 
+    REPORTS_PER_PAGE = 5
+
     def index
-        @reports = Report.all
-        render json:@reports, status: 200
+        @page = params.fetch(:page, 0).to_i
+        render_reports(@page)
     end
 
     def show
@@ -29,6 +31,14 @@ class ReportsController < ApplicationController
 
     def destroy
         @report.destroy
+
+        @page = params.fetch(:page, 0).to_i
+        render_reports(@page)
+    end
+
+    def allreports
+        reports = Report.all
+        render json: reports, status: 200
     end
 
     private
@@ -41,4 +51,8 @@ class ReportsController < ApplicationController
         params.require(:report).permit(:reply_id, :comment_id)
     end
 
+    def render_reports page
+        @reports = Report.offset(@page*REPORTS_PER_PAGE).limit(REPORTS_PER_PAGE).reverse_order
+        render json: @reports, status: 200
+    end
 end

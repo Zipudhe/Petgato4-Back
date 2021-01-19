@@ -31,12 +31,14 @@ Rails.application.routes.draw do
 
   # Rotas da Reports controller 
   resources :reports
+  get "/reports_all", to: "reports#allreports"
   
   # Rotas da Contacts controller
   get "/messages", to: "contacts#index"
   get "/messages/:id", to: "contacts#show"
   post "/messages", to: "contacts#create"
   delete "/messages/:id", to: "contacts#destroy"
+  get "/messages_all", to: "contacts#allcontacts"
 
   # Rotas da Users controller
   get "/users", to: "users#index"
@@ -44,6 +46,7 @@ Rails.application.routes.draw do
   post "/users", to: "users#create"
   put "/users/:id", to: "users#update"
   delete "users/:id", to: "users#destroy"
+  get "users_all", to: "users#allusers"
 
   # Rota de autenticação
   post "/auth/login", to: "authentication#login"
