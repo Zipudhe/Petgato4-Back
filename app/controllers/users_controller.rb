@@ -1,11 +1,14 @@
 class UsersController < ApplicationController
-    before_action :authorize_request, only: [:index, :update, :destroy]
+    before_action :authorize_request, only: [:update, :destroy]
     before_action :set_user, only: [:show, :update, :destroy]
+
+    USERS_PER_PAGE = 5
 
     # GET /users all users
     def index
-        @users = User.all
-        render json:@users, status: 200
+        @page = params.fetch(:page, 0).to_i
+
+        render_users(@page)
     end 
 
     # GET /users/:id mostra info do user com id da rota 
@@ -35,6 +38,14 @@ class UsersController < ApplicationController
     # DELETE /users/:id
     def destroy
         @user.destroy
+
+        @page = params.fetch(:page, 0).to_i
+        render_users(@page)
+    end
+
+    def allusers
+        users = User.all
+        render json: users, status: 200
     end
 
     private
@@ -47,6 +58,11 @@ class UsersController < ApplicationController
     # Strong parameters, dizer quais parâmetros do BODY da requisição são permitidos 
     def user_params
         params.require(:user).permit(:name, :email, :password, :password_confirmation, :is_admin)
+    end
+
+    def render_users page
+        @users = User.offset(@page*USERS_PER_PAGE).limit(USERS_PER_PAGE).reverse_order
+        render json: @users, status: 200
     end
 
 end
