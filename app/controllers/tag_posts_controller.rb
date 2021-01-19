@@ -48,6 +48,7 @@ class TagPostsController < ApplicationController
             is_included = tag_posts.include? post_tags[i]
             if is_included = false
                 post_tags[i].destroy
+            end
         end
 
     end
