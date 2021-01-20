@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get "/allposts", to: "posts#posts"
   get "/countposts", to: "posts#countposts"
   get "/popularposts", to: "posts#popularposts"
+  get "/searchposts", to: "posts#search_posts"
 
   # Rotas da Tags controller
   resources :tags
