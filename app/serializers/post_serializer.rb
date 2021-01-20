@@ -1,5 +1,5 @@
 class PostSerializer < ActiveModel::Serializer
-  attributes :id, :name, :content, :views, :image
+  attributes :id, :name, :content, :views, :created_at, :updated_at,  :image
 
   def image
     if object.image.attached?
