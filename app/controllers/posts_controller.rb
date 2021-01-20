@@ -63,6 +63,13 @@ class PostsController < ApplicationController
         render json: @posts, status: 200
     end
 
+    # faz uma busca nos posts (text: valor a ser buscado)
+    def search_posts
+        @posts = Post.ransack(name_cont: params[:q]).result.limit(20)
+
+        render json: @posts, status: 200
+    end
+
     private
 
     # Pegar id da rota e buscar o post correspondente no banco de dados
