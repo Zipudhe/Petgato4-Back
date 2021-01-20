@@ -79,7 +79,7 @@ class PostsController < ApplicationController
 
     # Strong parameters, dizer quais parâmetros do BODY da requisição são permitidos 
     def post_params
-        params.require(:post).permit(:name, :content, :image, :views)
+        params.require(:post).permit(:name, :content, :views, :image)
     end
 
     def all_posts
