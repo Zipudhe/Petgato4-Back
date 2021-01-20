@@ -31,6 +31,19 @@ class CommentsController < ApplicationController
         @comment.destroy
     end
 
+    # GET /comments/:post_id Retorna o número de comentários (incluindo replies) de um post
+    def count_comments
+        count = 0
+        comments = Comment.where(post_id: params[:post_id])
+        count = comments.size
+        # Resgatar número de replies de cada comment
+        for i in 0..(comments.size - 1)
+            count += Reply.where(comment_id: comments[i].id).size 
+        end
+
+        render json: {"n_comments" => count}, status: 200
+    end
+
     private
 
     def set_comment

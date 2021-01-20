@@ -28,7 +28,7 @@ class LikesController < ApplicationController
         render json: @likes.length, status: 200
     end
 
-    # POST /likes Cria uma nova mensagem
+    # POST /likes Cria uma novo like
     def create
         @like = Like.new(like_params)
         if @like.save
