@@ -12,5 +12,5 @@ class User < ApplicationRecord
     validates :email, presence: true, uniqueness: true
 
     # Active Storage para profile picture
-    has_one_attached :image
+    has_one_attached :profile_image
 end

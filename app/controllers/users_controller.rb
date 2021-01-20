@@ -60,7 +60,7 @@ class UsersController < ApplicationController
 
     # Strong parameters, dizer quais parâmetros do BODY da requisição são permitidos 
     def user_params
-        params.require(:user).permit(:name, :email, :password, :password_confirmation, :is_admin)
+        params.require(:user).permit(:name, :email, :password, :password_confirmation, :is_admin, :profile_image)
     end
 
     def render_users page
