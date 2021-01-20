@@ -31,6 +31,27 @@ class RepliesController < ApplicationController
         @reply.destroy
     end
 
+    # /replies_by_comment/:comment_id Retorna todas as replies de um comment incluindo o usuário (nome e imagem) 
+    def replies_by_comment
+        replies = Reply.where(comment_id: params[:comment_id])
+
+        # array que recebe os objetos
+        @replies_to_render = []
+        
+        # Resgatar dados do usuário
+        for i in 0..(replies.size-1)
+            user = User.find(replies[i].user_id)
+            hashref = {"comment_id" => replies[i].comment_id,
+            "reply_description" => replies[i].description,
+            "author" => user.name
+            #"author_img" => user.avatar ou user.image
+            }
+            @replies_to_render.push(hashref)
+        end
+
+        render json: @replies_to_render, status: 200
+    end
+
     private
 
     def set_reply

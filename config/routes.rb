@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
   # Rotas da Replies controller
   resources :replies
+  get "/replies_by_comment/:comment_id", to: "replies#replies_by_comment"
   
   # Rotas da TagPosts controller
   resources :tag_posts
