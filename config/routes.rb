@@ -61,7 +61,7 @@ Rails.application.routes.draw do
   get "/likes", to: "likes#index"
   get "/likes/:user_id/:post_id", to: "likes#userliked"
   delete "/likes/:user_id/:post_id", to: "likes#destroy"
-  get "/likes/post/:post_id", to: "likes#postlikes"
+  get "/countlikespost/:post_id", to: "likes#postlikes"
   post "/likes", to: "likes#create"
 
 end

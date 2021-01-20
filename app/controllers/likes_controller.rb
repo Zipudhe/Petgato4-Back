@@ -17,7 +17,7 @@ class LikesController < ApplicationController
         render json: @liked, status: 200
     end
 
-    # DELETE /likes/:user_id/:post_id deletea like do usuário no post
+    # DELETE /likes/:user_id/:post_id deleta like do usuário no post
     def destroy
         @like.destroy
         render json: {"message" => "Like deletado"}, status: 200
