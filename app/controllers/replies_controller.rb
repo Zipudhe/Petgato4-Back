@@ -42,6 +42,7 @@ class RepliesController < ApplicationController
         for i in 0..(replies.size-1)
             user = User.find(replies[i].user_id)
             hashref = {"comment_id" => replies[i].comment_id,
+            "reply_id" => replies[i].id,
             "reply_description" => replies[i].description,
             "author" => user.name
             #"author_img" => user.avatar ou user.image
