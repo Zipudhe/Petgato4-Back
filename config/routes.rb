@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   # Rotas da Comments controller
   resources :comments
+  get "/comments_count/:post_id", to: "comments#count_comments"
   
   # Rotas da Replies controller
   resources :replies
