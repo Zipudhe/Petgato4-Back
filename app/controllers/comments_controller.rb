@@ -31,7 +31,7 @@ class CommentsController < ApplicationController
         @comment.destroy
     end
 
-    # GET /comments/:post_id Retorna o número de comentários (incluindo replies) de um post
+    # GET /comments_count/:post_id Retorna o número de comentários (incluindo replies) de um post
     def count_comments
         count = 0
         comments = Comment.where(post_id: params[:post_id])
