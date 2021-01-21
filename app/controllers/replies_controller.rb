@@ -44,6 +44,7 @@ class RepliesController < ApplicationController
             hashref = {"comment_id" => replies[i].comment_id,
             "reply_id" => replies[i].id,
             "reply_description" => replies[i].description,
+            "created_at" => replies[i].created_at,
             "author" => user.name
             #"author_img" => user.avatar ou user.image
             }

@@ -44,6 +44,7 @@ class CommentsController < ApplicationController
             hashref = {"post_id" => comments[i].post_id,
             "comment_id" => comments[i].id,
             "comment_description" => comments[i].description,
+            "created_at" => comments[i].created_at,
             "author" => user.name
             #"author_img" => user.avatar ou user.image
             }
