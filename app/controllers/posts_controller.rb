@@ -129,6 +129,13 @@ class PostsController < ApplicationController
                 "updated_at" => @posts[i].updated_at,
                 "tags" => @tags
             }
+
+            # verifica se existe imagem
+            if @posts[i].banner.attached?
+                @url = url_for(@posts[i].banner)
+                hashref["url"] = @url
+            end
+
             @posts_to_render.push(hashref)
         end
 
