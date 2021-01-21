@@ -45,7 +45,8 @@ class CommentsController < ApplicationController
             "comment_id" => comments[i].id,
             "comment_description" => comments[i].description,
             "created_at" => comments[i].created_at,
-            "author" => user.name
+            "author" => user.name,
+            "is_admin" => user.is_admin
             #"author_img" => user.avatar ou user.image
             }
             @comments_to_render.push(hashref)
