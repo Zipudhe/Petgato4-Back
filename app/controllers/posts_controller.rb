@@ -75,7 +75,7 @@ class PostsController < ApplicationController
 
     # retorna os 3 posts mais populares (com mais visualizações)
     def popularposts
-        @posts = Post.order(:views).last(3)
+        @posts = Post.order(:views).last(3).reverse()
 
         render json: @posts, status: 200
     end
