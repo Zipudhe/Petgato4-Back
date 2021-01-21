@@ -45,7 +45,8 @@ class RepliesController < ApplicationController
             "reply_id" => replies[i].id,
             "reply_description" => replies[i].description,
             "created_at" => replies[i].created_at,
-            "author" => user.name
+            "author" => user.name,
+            "is_admin" => user.is_admin
             #"author_img" => user.avatar ou user.image
             }
             @replies_to_render.push(hashref)
