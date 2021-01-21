@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :authorize_request, only: [:update, :destroy]
+    #before_action :authorize_request, only: [:update, :destroy]
     before_action :set_user, only: [:show, :update, :destroy]
 
     USERS_PER_PAGE = 5
@@ -13,7 +13,24 @@ class UsersController < ApplicationController
 
     # GET /users/:id mostra info do user com id da rota 
     def show
-        render json:@user, status: 200
+
+        if @user.profile_image.attached?
+            @url = url_for(@user.profile_image)
+
+            @temp = {
+                "url" => @url, 
+                "id" => @user.id, 
+                "name" => @user.name, 
+                "email" => @user.email,
+                "is_admin" => @user.is_admin,
+                "created_at" => @user.created_at
+            }
+
+            render json: @temp, status: 200
+        else
+            render json: @user, status: 200
+        end
+
     end
 
     # POST /users criar um usuário
@@ -29,9 +46,11 @@ class UsersController < ApplicationController
     # PATCH/PUT /users/:id Atualizar os dados do user que vem do body da requisição
     def update
         if @user.update(user_params)
+            @url = url_for(@user.profile_image)
+
             render json: @user, status: 200
         else
-            render json: @user.erros, status: 422
+            render json: @user.errors, status: 422
         end
     end
 
@@ -60,7 +79,7 @@ class UsersController < ApplicationController
 
     # Strong parameters, dizer quais parâmetros do BODY da requisição são permitidos 
     def user_params
-        params.require(:user).permit(:name, :email, :password, :password_confirmation, :is_admin)
+        params.permit(:id, :name, :email, :password, :password_confirmation, :is_admin, :profile_image)
     end
 
     def render_users page

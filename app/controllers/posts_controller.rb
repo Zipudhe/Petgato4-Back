@@ -18,7 +18,22 @@ class PostsController < ApplicationController
 
     # GET /posts/:id mostra info do post com id da rota 
     def show
-        render json:@post, status: 200
+        if @post.banner.attached?
+            @url = url_for(@post.banner)
+
+            @temp = {
+                "url" => @url, 
+                "id" => @post.id, 
+                "name" => @post.name,
+                "content" => @post.content,
+                "views" => @post.views,
+                "created_at" => @post.created_at
+            }
+
+            render json: @temp, status: 200
+        else
+            render json: @post, status: 200
+        end
     end
 
     # POST /posts criar um usuário
@@ -34,6 +49,8 @@ class PostsController < ApplicationController
     # PATCH/PUT /posts/:id Atualizar os dados do post que vem do body da requisição
     def update
         if @post.update(post_params)
+            @url = url_for(@post.banner)
+
             render json: @post, status: 200
         else
             render json: @post.erros, status: 422
@@ -79,7 +96,7 @@ class PostsController < ApplicationController
 
     # Strong parameters, dizer quais parâmetros do BODY da requisição são permitidos 
     def post_params
-        params.require(:post).permit(:name, :content, :banner, :views)
+        params.permit(:name, :content, :views, :banner)
     end
 
     def all_posts
