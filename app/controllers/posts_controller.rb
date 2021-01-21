@@ -79,7 +79,7 @@ class PostsController < ApplicationController
 
     # Strong parameters, dizer quais parâmetros do BODY da requisição são permitidos 
     def post_params
-        params.require(:post).permit(:name, :content, :image, :views)
+        params.require(:post).permit(:name, :content, :banner, :views)
     end
 
     def all_posts
@@ -89,7 +89,33 @@ class PostsController < ApplicationController
     # Busca os posts da página, 5 posts por página, com os mais recentes primeiro
     def render_posts page
         @posts = Post.offset(@page*POSTS_PER_PAGE).limit(POSTS_PER_PAGE).reverse_order
-        render json:@posts, status: 200
+
+        # Pega nome das tags
+        # No for utilizei posts.size pq pode ocorrer uma página com menos de 5 posts
+        @posts_to_render = []
+        for i in 0..(@posts.size - 1)
+            @tagposts = TagPost.where(post_id: @posts[i].id)
+            @tags = ""
+            for j in 0..(@tagposts.size - 1)
+                name = Tag.find(@tagposts[j].tag_id).name
+                if j == (@tagposts.size - 1)
+                    @tags += name
+                else
+                    @tags += name + ", "
+                end
+            end
+            hashref = {"id" => @posts[i].id,
+                "name" => @posts[i].name,
+                "content" => @posts[i].content,
+                "views" => @posts[i].views,
+                "created_at" => @posts[i].created_at,
+                "updated_at" => @posts[i].updated_at,
+                "tags" => @tags
+            }
+            @posts_to_render.push(hashref)
+        end
+
+        render json:@posts_to_render, status: 200
     end
 
 end
