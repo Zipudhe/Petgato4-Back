@@ -41,14 +41,21 @@ class CommentsController < ApplicationController
         # Resgatar dados do usuário
         for i in 0..(comments.size-1)
             user = User.find(comments[i].user_id)
+            
             hashref = {"post_id" => comments[i].post_id,
             "comment_id" => comments[i].id,
             "comment_description" => comments[i].description,
             "created_at" => comments[i].created_at,
             "author" => user.name,
             "is_admin" => user.is_admin
-            #"author_img" => user.avatar ou user.image
             }
+
+            # verifica se existe imagem
+            if user.profile_image.attached?
+                @url = url_for(user.profile_image)
+                hashref["url"] = @url
+            end
+
             @comments_to_render.push(hashref)
         end
 

@@ -41,14 +41,21 @@ class RepliesController < ApplicationController
         # Resgatar dados do usuário
         for i in 0..(replies.size-1)
             user = User.find(replies[i].user_id)
+            
             hashref = {"comment_id" => replies[i].comment_id,
             "reply_id" => replies[i].id,
             "reply_description" => replies[i].description,
             "created_at" => replies[i].created_at,
             "author" => user.name,
             "is_admin" => user.is_admin
-            #"author_img" => user.avatar ou user.image
             }
+
+            # verifica se existe imagem
+            if user.profile_image.attached?
+                @url = url_for(user.profile_image)
+                hashref["url"] = @url
+            end
+            
             @replies_to_render.push(hashref)
         end
 
