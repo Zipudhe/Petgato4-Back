@@ -31,6 +31,29 @@ class CommentsController < ApplicationController
         @comment.destroy
     end
 
+    # /comments_by_post/:post_id Retorna todos os comments de um post incluindo o usuário (nome e imagem) 
+    def comments_by_post
+        comments = Comment.where(post_id: params[:post_id])
+
+        # array que recebe os objetos
+        @comments_to_render = []
+        
+        # Resgatar dados do usuário
+        for i in 0..(comments.size-1)
+            user = User.find(comments[i].user_id)
+            hashref = {"post_id" => comments[i].post_id,
+            "comment_id" => comments[i].id,
+            "comment_description" => comments[i].description,
+            "created_at" => comments[i].created_at,
+            "author" => user.name
+            #"author_img" => user.avatar ou user.image
+            }
+            @comments_to_render.push(hashref)
+        end
+
+        render json: @comments_to_render, status: 200
+    end
+
     # GET /comments_count/:post_id Retorna o número de comentários (incluindo replies) de um post
     def count_comments
         count = 0
