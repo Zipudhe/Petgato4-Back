@@ -46,11 +46,6 @@ class UsersController < ApplicationController
     # PATCH/PUT /users/:id Atualizar os dados do user que vem do body da requisição
     def update
         if @user.update(user_params)
-            '''
-            if params[:profile_image]
-                @user.profile_image.attach(params[:profile_image])
-            end
-            '''
             @url = url_for(@user.profile_image)
 
             render json: @user, status: 200

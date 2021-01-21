@@ -11,7 +11,7 @@ class Post < ApplicationRecord
     has_rich_text :content
 
     # Action Storage banner image
-    has_one_attached :image
+    has_one_attached :banner
     
     # Validações
     validates :name, presence: true
