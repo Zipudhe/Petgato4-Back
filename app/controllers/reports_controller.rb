@@ -56,6 +56,18 @@ class ReportsController < ApplicationController
         render json: @reported, status: 200
     end
 
+    # retorna se uma report de comentário (reply_id = null) já existe no banco de dados
+    def isreportedcomment
+        @reported = false
+        @temp_report = Report.where(comment_id: params[:comment_id])
+
+        if @temp_report.length > 0
+            @reported = true
+        end
+
+        render json: @reported, status: 200
+    end
+
     private
 
     def set_report

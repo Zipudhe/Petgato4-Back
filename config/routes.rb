@@ -39,6 +39,7 @@ Rails.application.routes.draw do
   get "/reports_all", to: "reports#allreports"
   get "/report_count", to: "reports#report_all_count"
   get "/isreported/:comment_id/:reply_id", to: "reports#isreported"
+  get "/isreportedcomment/:comment_id", to: "reports#isreportedcomment"
 
   # Rotas da Contacts controller
   get "/messages", to: "contacts#index"
