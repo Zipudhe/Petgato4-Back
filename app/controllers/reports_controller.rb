@@ -68,6 +68,34 @@ class ReportsController < ApplicationController
 
     def render_reports page
         @reports = Report.offset(@page*REPORTS_PER_PAGE).limit(REPORTS_PER_PAGE).reverse_order
-        render json: @reports, status: 200
+
+        @reports_to_render = []
+        for i in 0..(@reports.size - 1)
+            @comment = Comment.find(@reports[i].comment_id)
+            @post = Post.find(@comment.post_id)
+            if @reports[i].reply_id == nil
+                @user = User.find(@comment.user_id)
+                hashref = {"tipo_report" => "Comment",
+                    "comment_id" => @comment.id,
+                    "comment_description" => @comment.description,
+                    "comment_author" => @user.name,
+                    "post_id" => @post.id,
+                    "post_name" => @post.name
+                }
+                @reports_to_render.push(hashref)
+            else
+                reply = Reply.find(@reports[i].reply_id)
+                @user = User.find(reply.user_id)
+                hashref = {"tipo_report" => "reply",
+                    "reply_id" => reply.id,
+                    "reply_description" => reply.description,
+                    "reply_author" => @user.name,
+                    "post_id" => @post.id,
+                    "post_name" => @post.name
+                }
+                @reports_to_render.push(hashref)
+            end
+        end
+        render json: @reports_to_render, status: 200
     end
 end
