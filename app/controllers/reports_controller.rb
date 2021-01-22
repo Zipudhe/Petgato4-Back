@@ -75,7 +75,7 @@ class ReportsController < ApplicationController
             @post = Post.find(@comment.post_id)
             if @reports[i].reply_id == nil
                 @user = User.find(@comment.user_id)
-                hashref = {"tipo_report" => "Comment",
+                hashref = {"tipo_report" => "comment",
                     "comment_id" => @comment.id,
                     "comment_description" => @comment.description,
                     "comment_author" => @user.name,
