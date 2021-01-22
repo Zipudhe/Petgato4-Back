@@ -92,18 +92,22 @@ class ReportsController < ApplicationController
                     "comment_description" => @comment.description,
                     "comment_author" => @user.name,
                     "post_id" => @post.id,
-                    "post_name" => @post.name
+                    "post_name" => @post.name,
+                    "created_at" => @reports[i].created_at,
+                    "id" => @reports[i].id
                 }
                 @reports_to_render.push(hashref)
             else
                 reply = Reply.find(@reports[i].reply_id)
                 @user = User.find(reply.user_id)
                 hashref = {"tipo_report" => "reply",
-                    "reply_id" => reply.id,
-                    "reply_description" => reply.description,
-                    "reply_author" => @user.name,
+                    "comment_id" => reply.id,
+                    "comment_description" => reply.description,
+                    "comment_author" => @user.name,
                     "post_id" => @post.id,
-                    "post_name" => @post.name
+                    "post_name" => @post.name,
+                    "created_at" => @reports[i].created_at,
+                    "id" => @reports[i].id
                 }
                 @reports_to_render.push(hashref)
             end
