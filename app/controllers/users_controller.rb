@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    #before_action :authorize_request, only: [:update, :destroy]
+    before_action :authorize_request, only: [:update, :destroy]
     before_action :set_user, only: [:show, :update, :destroy]
 
     USERS_PER_PAGE = 5
