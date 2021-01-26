@@ -13,9 +13,12 @@ class User < ApplicationRecord
         (?=.*\d)
     /x
 
+    # Requisitos do email
+    EMAIL_PATTERN = /\A[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]/x
+
     # Validações
     validates :name, presence: true
-    validates :email, presence: true, uniqueness: true
+    validates :email, presence: true, uniqueness: true, format: EMAIL_PATTERN
     validates :password, format: PASSWORD_REQUIREMENTS
 
     # Active Storage para profile picture
